@@ -64,10 +64,9 @@ instacart %>%
   summarize(mean_time = mean(order_hour_of_day)) %>% 
   pivot_wider(
     names_from = product_name,
-    values_from = mean_time) %>% 
+    values_from = mean_time)  
 
-  
-            #make 2 by 7.. format days
+  #make 2 by 7.. format days
 ```
 
 ##Problem 2
@@ -85,11 +84,46 @@ brfss <-
            factor(response,levels(response)[c(4,2,3,5,1)]))
 
 
-table(brfss$question)
+brfss %>% 
+  filter(year==2002) %>%
+  group_by(locationabbr) %>% 
+  summarize(n_state =n_distinct(locationdesc)) %>% 
+  filter(n_state>=7)
+
 ```
+In 2002, Connectiticut, Florida, Massachusetts, North Carolina, New Jersey, Pennsylvania each were observed at 7 or more locations
+```{r}
+brfss %>% 
+  filter(year==2010) %>%
+  group_by(locationabbr) %>% 
+  summarize(n_state =n_distinct(locationdesc)) %>% 
+  filter(n_state>=7)
+```
+In 2010, CA, CO, FL, MA, MD, NC, NE, NJ, NY, OH were observed at 7 or more locations
 
+#Limited to excellent responses
+```{r}
+spaghetti<-brfss %>% 
+  filter(response=="Excellent") %>% 
+  group_by(year, locationabbr) %>% 
+  summarize(mean_data_value=mean(data_value))
+```
+#Make a spaghetti plot
+```{r}
+spaghetti %>% ggplot(aes(x = year, y = mean_data_value, color = locationabbr)) +
+  geom_line(aes(group = locationabbr)) +
+  geom_point()+ 
+  viridis::scale_fill_viridis(discrete = TRUE)
+```
+```{r}
+brfss %>%
+  filter(year == c(2006, 2010), locationabbr=="NY") %>%
+  ggplot(aes(x = response, y = data_value))+
+  geom_violin(aes(fill=response), alpha = .4)+
+  facet_grid(~year)+ 
+  theme(legend.position = "bottom", axis.text.x = element_text(size=5))
 
-
+```
 
 
 
