@@ -228,6 +228,7 @@ accel %>%
 
 
 
+
 ```{r}
 accel2 %>% 
   group_by(hour2, day, day_id) %>% 
@@ -236,6 +237,13 @@ accel2 %>%
   geom_point()+
   geom_line()
 ```
+
+
+
+
+
+
+
 
 
 
