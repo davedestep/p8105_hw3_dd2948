@@ -211,12 +211,4 @@ The trend is that in the morning (12 AM to 4) this person is most likely asleep 
  
 
 
-## Including Plots
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
