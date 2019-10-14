@@ -214,7 +214,7 @@ accel2 %>%
 The trend is that in the morning (12 AM to 4) this person is most likely asleep every day (except on thursday when he seems to sometimes be awake). He then wakes up and has a more or less constant activity level throughout the dat(except sunday) until 6PM, where he begins to either wind down on certain days, or exercise on other days.
 
 
-
+ 
 #If you want each day instead of hour for each day you can run the following code:
 ```{r}
 accel %>% 
