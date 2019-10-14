@@ -213,8 +213,18 @@ accel2 %>%
 ```   
 The trend is that in the morning (12 AM to 4) this person is most likely asleep every day (except on thursday when he seems to sometimes be awake). He then wakes up and has a more or less constant activity level throughout the dat(except sunday) until 6PM, where he begins to either wind down on certain days, or exercise on other days.
 
+```{r}
+accel2 %>% 
+  group_by(hour2, day, day_id) %>% 
+  summarize(activity_hour=mean(activity_count)) %>% 
+  ggplot(aes(x=hour2, y=activity_hour, color=day))+
+  geom_point()+
+  geom_line()
+```
 
  
+
+
 #If you want each day instead of hour for each day you can run the following code:
 ```{r}
 accel %>% 
@@ -226,6 +236,7 @@ accel %>%
 ```
 
 
+
 ```{r}
 accel2 %>% 
   group_by(hour2, day, day_id) %>% 
@@ -234,6 +245,8 @@ accel2 %>%
   geom_point()+
   geom_line()
 ```
+
+
 
 
 
