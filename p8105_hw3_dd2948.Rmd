@@ -172,33 +172,46 @@ accel %>% ggplot(aes(x=activity, y=activity_count, color = day)) +
 
 ```{r}
 #Create an hour variable
+
+
+######THIS WAY IS BETTER##############################
 accel2<- accel %>%
   mutate(activity2=sapply(strsplit(activity, split='_', fixed=TRUE), function(x) (x[2]))) %>% 
-  mutate(hour=as.numeric(activity2)/60) %>% 
-  mutate(hour2=ifelse(hour<=1, 1, 
-ifelse(1<hour&hour<=2, 2, 
-ifelse(2<hour&hour<=3, 3, 
-       ifelse(3<hour&hour<=4, 4,
-              ifelse(4<hour&hour<=5, 5,
-                     ifelse(5<hour&hour<=6, 6,
-                            ifelse(6<hour&hour<=7, 7,
-                                   ifelse(7<hour&hour<=8, 8,
-                                          ifelse(8<hour&hour<=9, 9,
-                                                 ifelse(9<hour&hour<=10, 10,
-                                                        ifelse(10<hour&hour<=11, 11,
-                                                               ifelse(11<hour&hour<=12, 12,
-                                                                      ifelse(12<hour&hour<=13, 13,
-                                                                             ifelse(13<hour&hour<=14, 14,
-                                                                                    ifelse(14<hour&hour<=15, 15,
-                                                                                           ifelse(15<hour&hour<=16, 16,
-                                                                                                  ifelse(16<hour&hour<=17, 17,
-                                                                                                         ifelse(17<hour&hour<=18, 18,
-                                                                                                                ifelse(18<hour&hour<=19, 19,
-                                                                                                                       ifelse(19<hour&hour<=20, 20,
-                                                                                                                              ifelse(20<hour&hour<=21, 21,
-                                                                                                                                     ifelse(21<hour&hour<=22, 22,
-                                                                                                                                            ifelse(22<hour&hour<=23, 23,
-                                                                                                                                                   ifelse(23<hour&hour<=24, 24,0)))))))))))))))))))))))))
+  mutate(hour=as.numeric(activity2)/60)
+
+for (i in 0:24) {
+  accel2$hour2 = ifelse(accel2[[8]]>i, i,  accel2[[9]])
+}
+######################################################
+
+
+# accel2<- accel %>%
+#   mutate(activity2=sapply(strsplit(activity, split='_', fixed=TRUE), function(x) (x[2]))) %>% 
+#   mutate(hour=as.numeric(activity2)/60) %>% 
+#   mutate(hour2=ifelse(hour<=1, 1, 
+# ifelse(1<hour&hour<=2, 2, 
+# ifelse(2<hour&hour<=3, 3, 
+#        ifelse(3<hour&hour<=4, 4,
+#               ifelse(4<hour&hour<=5, 5,
+#                      ifelse(5<hour&hour<=6, 6,
+#                             ifelse(6<hour&hour<=7, 7,
+#                                    ifelse(7<hour&hour<=8, 8,
+#                                           ifelse(8<hour&hour<=9, 9,
+#                                                  ifelse(9<hour&hour<=10, 10,
+#                                                         ifelse(10<hour&hour<=11, 11,
+#                                                                ifelse(11<hour&hour<=12, 12,
+#                                                                       ifelse(12<hour&hour<=13, 13,
+#                                                                              ifelse(13<hour&hour<=14, 14,
+#                                                                                     ifelse(14<hour&hour<=15, 15,
+#                                                                                            ifelse(15<hour&hour<=16, 16,
+#                                                                                                   ifelse(16<hour&hour<=17, 17,
+#                                                                                                          ifelse(17<hour&hour<=18, 18,
+#                                                                                                                 ifelse(18<hour&hour<=19, 19,
+#                                                                                                                        ifelse(19<hour&hour<=20, 20,
+#                                                                                                                               ifelse(20<hour&hour<=21, 21,
+#                                                                                                                                      ifelse(21<hour&hour<=22, 22,
+#                                                                                                                                             ifelse(22<hour&hour<=23, 23,
+#                                                                                                                                                    ifelse(23<hour&hour<=24, 24,0)))))))))))))))))))))))))
       #Is there a better way to do this with sapply or a for loop?   
          
 #Plot
